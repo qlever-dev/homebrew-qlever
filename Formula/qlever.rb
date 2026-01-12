@@ -12,7 +12,7 @@ class Qlever < Formula
   depends_on :macos
 
   url "https://github.com/tanmay-9/qlever/releases/download/v0.5.38/qlever-0.5.38-macos-arm64.tar.gz"
-  sha256 "66401ebefe8bb99f89f6788f23c215fb98d92bdc65cf02b3890946f074c2b190"
+  sha256 "0dfa1e79b8b1840d5db5920cf115df9ae56f96961b31419ee7da0c02dc2ec3ad"
 
   def install
     bin.install "qlever-loader"
