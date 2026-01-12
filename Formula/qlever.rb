@@ -21,14 +21,12 @@ class Qlever < Formula
 
   def caveats
     <<~EOS
-      QLever's main binaries are:
+      QLever binaries have been installed:
         - qlever-loader: for loading and indexing data
         - qlever-server: start a SPARQL endpoint and query data
 
-      Use QLever via the qlever command-line interface (CLI), which can be installed via
-      pip install qlever. It is self-documenting via qlever --help (for an overview of all commands) 
-      and qlever <command> --help (for details on any specific command). 
-      For more information and example use cases, see https://github.com/ad-freiburg/qlever-control.
+      Use QLever via the qlever CLI (pip install qlever).
+      For more information: https://github.com/ad-freiburg/qlever-control
     EOS
   end
 
