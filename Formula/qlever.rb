@@ -4,6 +4,10 @@ class Qlever < Formula
   version "0.5.38"
   license "Apache-2.0"
 
+  depends_on "boost"                                                                                                                                                                                                                        
+  depends_on "icu4c@77"                                                                                                                                                                                                                     
+  depends_on "jemalloc"                                                                                                                                                                                                                     
+  depends_on "openssl@3" 
   depends_on arch: :arm64
   depends_on :macos
 
