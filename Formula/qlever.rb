@@ -8,7 +8,7 @@ class Qlever < Formula
   sha256 "4021173be61a69c37872652722b8959e9c52218f00821da26a9143c507e5db5f"
 
   depends_on "boost"                                                                                                                                                                                                                        
-  depends_on "icu4c"                                                                                                                                                                                                                     
+  depends_on "icu4c@77"                                                                                                                                                                                                                     
   depends_on "jemalloc"                                                                                                                                                                                                                     
   depends_on "openssl@3" 
   depends_on arch: :arm64
