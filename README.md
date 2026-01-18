@@ -5,6 +5,6 @@ Custom Homebrew tap for QLever (pronounced "Clever") graph database implementing
 You can add the custom tap and install the `qlever-loader` and `qlever-server` binaries in a MacOS terminal session using:
 
 ```zsh
-brew tap tanmay-9/qlever
-brew install tanmay-9/qlever/qlever
+brew tap qlever-dev/qlever
+brew install qlever-dev/qlever/qlever
 ```
