@@ -1,0 +1,63 @@
+name: Update qlever-control formula
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-formula:
+    runs-on: macos-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check if update is needed
+        id: version-check
+        run: |
+          # Get current version from formula
+          CURRENT_VERSION=$(grep -oP 'qlever-\K[0-9]+\.[0-9]+\.[0-9]+' Formula/qlever-control.rb | head -1)
+          echo "Current version: $CURRENT_VERSION"
+
+          # Get latest version from PyPI
+          LATEST_VERSION=$(curl -s https://pypi.org/pypi/qlever/json | python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])")
+          echo "Latest version: $LATEST_VERSION"
+
+          if [ "$CURRENT_VERSION" = "$LATEST_VERSION" ]; then
+            echo "Version unchanged, skipping update"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "New version available: $CURRENT_VERSION -> $LATEST_VERSION"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create a fresh virtual environment and generate formula
+        if: steps.version-check.outputs.skip != 'true'
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          venv/bin/pip install qlever homebrew-pypi-poet
+          poet -f qlever > Formula/qlever-control.rb
+          deactivate
+          rm -rf venv
+
+      - name: Fix up generated formula
+        if: steps.version-check.outputs.skip != 'true'
+        run: python3 fix_formula.py
+
+      - name: Commit and push
+        if: steps.version-check.outputs.skip != 'true'
+        run: |
+          git config user.name "Automated"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "Update qlever-control: ${timestamp}" || exit 0
+          git pull --rebase
+          git push

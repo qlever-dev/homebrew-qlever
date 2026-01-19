@@ -1,13 +1,13 @@
 class QleverControl < Formula
   include Language::Python::Virtualenv
 
-  desc "Command-line interface for QLever SPARQL engine"
+  desc "Command-line tool for QLever graph database"
   homepage "https://github.com/ad-freiburg/qlever-control"
+  license "Apache-2.0"
   url "https://files.pythonhosted.org/packages/fb/46/fc020063ce0168e40c7c9664782cb1f40bef3c08f0ee12999313e2fccc0f/qlever-0.5.42.tar.gz"
   sha256 "0a0b91d44a391f6836419d4ed74bf71336ad845f61f0e7b8c508718182dc8a6d"
-  license "Apache-2.0"
 
-  depends_on "python@3.12"
+  depends_on "python3"
 
   resource "argcomplete" do
     url "https://files.pythonhosted.org/packages/38/61/0b9ae6399dd4a58d8c1b1dc5a27d6f2808023d0b5dd3104bb99f45a33ff6/argcomplete-3.6.3.tar.gz"
@@ -75,6 +75,7 @@ class QleverControl < Formula
   end
 
   def install
+    virtualenv_create(libexec, "python3")
     virtualenv_install_with_resources
   end
 
