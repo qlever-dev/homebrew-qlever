@@ -63,7 +63,7 @@ jobs:
           qlever get-data
           qlever index --system native --index-binary qlever-index
           qlever start --system native --server-binary qlever-server
-          qlever status
+          qlever status --cmdline-regex "^(qlever-server|qlever-index)" 
           qlever query
-          qlever stop
+          qlever stop --cmdline-regex "qlever-server.* -i [^ ]*%%NAME%%" 
           ls -lh
