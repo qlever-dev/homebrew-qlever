@@ -21,7 +21,7 @@ jobs:
         run: brew tap qlever-dev/qlever
 
       - name: Install qlever
-        run: brew install qlever-dev/qlever/qlever
+        run: brew install qlever
 
       - name: Run Homebrew formula tests
         run: brew test qlever-dev/qlever/qlever
