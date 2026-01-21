@@ -4,8 +4,8 @@ class QleverControl < Formula
   desc "Command-line tool for QLever graph database"
   homepage "https://github.com/ad-freiburg/qlever-control"
   license "Apache-2.0"
-  url "https://files.pythonhosted.org/packages/07/e4/310b27cda7008699f2f73b8a124c905bb1c3966bd6de32d91b7021259c36/qlever-0.5.43.tar.gz"
-  sha256 "ee8cdf9f56b3b9bb6be834a9788a47ba8722dbb233eafb0e32810fe30b5f70de"
+  url "https://files.pythonhosted.org/packages/5e/fd/bc336d74d6c850796275d3179477be0ce0c854d5abc0280afa60c13abcaf/qlever-0.5.44.tar.gz"
+  sha256 "d461d9b5b3d09700539a4bebeaa454c3799f70af4159b5b7242123662b7eea39"
 
   depends_on "python3"
 
@@ -35,8 +35,8 @@ class QleverControl < Formula
   end
 
   resource "pyparsing" do
-    url "https://files.pythonhosted.org/packages/33/c1/1d9de9aeaa1b89b0186e5fe23294ff6517fce1bc69149185577cd31016b2/pyparsing-3.3.1.tar.gz"
-    sha256 "47fad0f17ac1e2cad3de3b458570fbc9b03560aa029ed5e16ee5554da9a2251c"
+    url "https://files.pythonhosted.org/packages/f3/91/9c6ee907786a473bf81c5f53cf703ba0957b23ab84c264080fb5a450416f/pyparsing-3.3.2.tar.gz"
+    sha256 "c777f4d763f140633dcb6d8a3eda953bf7a214dc4eff598413c070bcdc117cbc"
   end
 
   resource "PyYAML" do
