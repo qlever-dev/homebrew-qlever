@@ -77,9 +77,6 @@ class QleverControl < Formula
   def install
     virtualenv_create(libexec, "python3")
     virtualenv_install_with_resources
-    # Replace bin/qlever with a wrapper script that sets the env var
-    rm bin/"qlever"
-    (bin/"qlever").write_env_script libexec/"qlever", QLEVER_ARGCOMPLETE_ENABLED: "1"
   end
 
   test do
