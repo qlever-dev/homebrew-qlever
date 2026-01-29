@@ -89,6 +89,12 @@ class QleverControl < Formula
   def install
     virtualenv_create(libexec, "python3")
     virtualenv_install_with_resources
+
+    # Install shell completions
+    generate_completions_from_executable(
+      libexec/"bin/register-python-argcomplete", "qlever",
+      shells: [:bash, :zsh, :fish]
+    )
   end
 
   test do

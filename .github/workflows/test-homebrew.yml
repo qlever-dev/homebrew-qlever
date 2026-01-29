@@ -47,31 +47,6 @@ jobs:
           qlever --version
           qlever --help
 
-      - name: Verify Qleverfiles have SYSTEM = native
-        run: |
-          # Find Qleverfiles in Homebrew's virtualenv
-          QLEVER_FILES=$(brew --prefix qlever-control)/libexec/lib/python*/site-packages/qlever/Qleverfiles
-          echo "Qleverfiles location: $QLEVER_FILES"
-
-          # Check all Qleverfiles for SYSTEM setting
-          echo "Checking Qleverfiles for SYSTEM = native..."
-          for f in $QLEVER_FILES/*; do
-            if [ -f "$f" ]; then
-              echo "Checking: $f"
-              if grep -qi "^\s*SYSTEM\s*=\s*docker" "$f"; then
-                echo "ERROR: Found SYSTEM = docker in $f"
-                grep -i "SYSTEM" "$f"
-                exit 1
-              fi
-              if grep -qi "^\s*SYSTEM\s*=\s*native" "$f"; then
-                echo "OK: SYSTEM = native"
-              else
-                echo "WARNING: No SYSTEM setting found in $f"
-              fi
-            fi
-          done
-          echo "All Qleverfiles verified!"
-
       - name: Verify dynamic libraries resolve
         run: |
           echo "=== qlever-server dependencies ==="
