@@ -1,30 +1,12 @@
 diff --git a/src/qlever/config.py b/src/qlever/config.py
 --- a/src/qlever/config.py
 +++ b/src/qlever/config.py
-@@ -112,16 +112,16 @@ class QleverConfig:
+@@ -112,7 +112,7 @@ class QleverConfig:
          autocomplete_mode = "COMP_LINE" in os.environ
  
          # Check if the user has registered this script for argcomplete.
 -        argcomplete_check_off = os.environ.get("QLEVER_ARGCOMPLETE_CHECK_OFF")
--        argcomplete_enabled = os.environ.get("QLEVER_ARGCOMPLETE_ENABLED")
--        if not argcomplete_enabled and not argcomplete_check_off:
--            log.info("")
--            log.warn(f"To enable autocompletion, run the following command, "
--                     f"and consider adding it to your `.bashrc` or `.zshrc`:"
--                     f"\n\n"
--                     f"eval \"$(register-python-argcomplete {script_name})\""
--                     f" && export QLEVER_ARGCOMPLETE_ENABLED=1")
--            log.info("")
-+        # argcomplete_check_off = os.environ.get("QLEVER_ARGCOMPLETE_CHECK_OFF")
-+        # argcomplete_enabled = os.environ.get("QLEVER_ARGCOMPLETE_ENABLED")
-+        # if not argcomplete_enabled and not argcomplete_check_off:
-+        #     log.info("")
-+        #     log.warn(f"To enable autocompletion, run the following command, "
-+        #              f"and consider adding it to your `.bashrc` or `.zshrc`:"
-+        #              f"\n\n"
-+        #              f"eval \"$(register-python-argcomplete {script_name})\""
-+        #              f" && export QLEVER_ARGCOMPLETE_ENABLED=1")
-+        #     log.info("")
- 
-         # Create a temporary parser only to parse the `--qleverfile` option, in
-         # case it is given, and to determine whether a command was given that
++        argcomplete_check_off = True
+         argcomplete_enabled = os.environ.get("QLEVER_ARGCOMPLETE_ENABLED")
+         if not argcomplete_enabled and not argcomplete_check_off:
+             log.info("")
