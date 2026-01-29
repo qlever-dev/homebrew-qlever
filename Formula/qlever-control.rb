@@ -76,14 +76,12 @@ class QleverControl < Formula
 
   # Disable argcomplete warning for Homebrew installations
   patch do
-    url "https://raw.githubusercontent.com/qlever-dev/homebrew-qlever/refs/heads/qleverfile-native-patch/patches/disable-autocompletion-warning.patch"
-    sha256 "00bb2c4dc24181e7169fcf31b395a8e29e7144a182c43037710739487c294f62"
+    tap_file "patches/disable-autocompletion-warning.patch"
   end
 
   # Update all Qleverfiles to use SYSTEM = native by default
   patch do
-    url "https://raw.githubusercontent.com/qlever-dev/homebrew-qlever/refs/heads/qleverfile-native-patch/patches/qleverfile-use-native-system.patch"
-    sha256 "b3731065aeb8372cf1106306206316c93fc0a34243b3fc805861a683818eb6b9"
+    tap_file "patches/qleverfile-use-native-system.patch"
   end
 
   def install
