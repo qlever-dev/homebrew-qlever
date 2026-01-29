@@ -23,7 +23,7 @@ jobs:
         run: |
           brew tap-new $USER/local-tap
           cp Formula/*.rb $(brew --repository $USER/local-tap)/Formula/
-          cp -r patches $(brew --repository $USER/local-tap)/ || true
+          cp -r Patches $(brew --repository $USER/local-tap)/ || true
           brew install --build-from-source $USER/local-tap/qlever
           brew test $USER/local-tap/qlever
           brew test $USER/local-tap/qlever-control
