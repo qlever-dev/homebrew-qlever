@@ -74,9 +74,28 @@ class QleverControl < Formula
     sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
   end
 
+
+  # Disable argcomplete warning for Homebrew installations
+  patch do
+    url "file://#{File.expand_path('../Patches/disable-autocompletion-warning.patch', __dir__)}"
+    sha256 "00bb2c4dc24181e7169fcf31b395a8e29e7144a182c43037710739487c294f62"
+  end
+
+  # Update all Qleverfiles to use SYSTEM = native by default
+  patch do
+    url "file://#{File.expand_path('../Patches/qleverfile-use-native-system.patch', __dir__)}"
+    sha256 "b3731065aeb8372cf1106306206316c93fc0a34243b3fc805861a683818eb6b9"
+  end
+
   def install
     virtualenv_create(libexec, "python3")
     virtualenv_install_with_resources
+
+    # Install shell completions
+    generate_completions_from_executable(
+      libexec/"bin/register-python-argcomplete", "qlever",
+      shells: [:bash, :zsh, :fish]
+    )
   end
 
   test do
