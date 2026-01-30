@@ -74,6 +74,7 @@ class QleverControl < Formula
     sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
   end
 
+
   # Disable argcomplete warning for Homebrew installations
   patch do
     url "file://#{File.expand_path('../Patches/disable-autocompletion-warning.patch', __dir__)}"
