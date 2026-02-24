@@ -17,6 +17,7 @@ jobs:
           echo "Architecture: $(uname -m)"
           echo "macOS version: $(sw_vers -productVersion)"
           echo "Runner: ${{ matrix.os }}"
+          echo "Python version: $(python3 --version)"
 
       - name: Update Homebrew
         run: brew update
