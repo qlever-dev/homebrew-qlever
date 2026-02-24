@@ -1,6 +1,11 @@
 name: Update qlever-control formula
 
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  merge_group:
   workflow_dispatch:
 
 permissions:
