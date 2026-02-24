@@ -5,7 +5,11 @@ on:
 
 jobs:
   test-homebrew-install:
-    runs-on: macos-14
+    strategy:
+      matrix:
+        os: [macos-14, macos-15, macos-26]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check runner architecture
