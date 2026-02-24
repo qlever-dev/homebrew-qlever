@@ -4,10 +4,10 @@ class QleverControl < Formula
   desc "Command-line tool for QLever graph database"
   homepage "https://github.com/ad-freiburg/qlever-control"
   license "Apache-2.0"
-  url "https://files.pythonhosted.org/packages/5e/fd/bc336d74d6c850796275d3179477be0ce0c854d5abc0280afa60c13abcaf/qlever-0.5.44.tar.gz"
-  sha256 "d461d9b5b3d09700539a4bebeaa454c3799f70af4159b5b7242123662b7eea39"
+  url "https://files.pythonhosted.org/packages/30/64/3aa30ebb5742ad167a50034f8b8ba5bd73feef3dcbdf49b1ba889a3aec62/qlever-0.5.45.tar.gz"
+  sha256 "bc9d0b0cdaf4d4532ce455361380ea34baddca9992f4fd01665d341014ff65ee"
 
-  depends_on "python3"
+  depends_on "python@3.13"
 
   resource "argcomplete" do
     url "https://files.pythonhosted.org/packages/38/61/0b9ae6399dd4a58d8c1b1dc5a27d6f2808023d0b5dd3104bb99f45a33ff6/argcomplete-3.6.3.tar.gz"
@@ -30,8 +30,8 @@ class QleverControl < Formula
   end
 
   resource "psutil" do
-    url "https://files.pythonhosted.org/packages/73/cb/09e5184fb5fc0358d110fc3ca7f6b1d033800734d34cac10f4136cfac10e/psutil-7.2.1.tar.gz"
-    sha256 "f7583aec590485b43ca601dd9cea0dcd65bd7bb21d30ef4ddbf4ea6b5ed1bdd3"
+    url "https://files.pythonhosted.org/packages/aa/c6/d1ddf4abb55e93cebc4f2ed8b5d6dbad109ecb8d63748dd2b20ab5e57ebe/psutil-7.2.2.tar.gz"
+    sha256 "0746f5f8d406af344fd547f1c8daa5f5c33dbc293bb8d6a16d80b4bb88f59372"
   end
 
   resource "pyparsing" do
@@ -45,8 +45,8 @@ class QleverControl < Formula
   end
 
   resource "rdflib" do
-    url "https://files.pythonhosted.org/packages/ec/1b/4cd9a29841951371304828d13282e27a5f25993702c7c87dcb7e0604bd25/rdflib-7.5.0.tar.gz"
-    sha256 "663083443908b1830e567350d72e74d9948b310f827966358d76eebdc92bf592"
+    url "https://files.pythonhosted.org/packages/98/f5/18bb77b7af9526add0c727a3b2048959847dc5fb030913e2918bf384fec3/rdflib-7.6.0.tar.gz"
+    sha256 "6c831288d5e4a5a7ece85d0ccde9877d512a3d0f02d7c06455d00d6d0ea379df"
   end
 
   resource "requests" do
@@ -65,8 +65,8 @@ class QleverControl < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/a8/4b/29b4ef32e036bb34e4ab51796dd745cdba7ed47ad142a9f4a1eb8e0c744d/tqdm-4.67.1.tar.gz"
-    sha256 "f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2"
+    url "https://files.pythonhosted.org/packages/09/a9/6ba95a270c6f1fbcd8dac228323f2777d886cb206987444e4bce66338dd4/tqdm-4.67.3.tar.gz"
+    sha256 "7d825f03f89244ef73f1d4ce193cb1774a8179fd96f31d7e1dcde62092b960bb"
   end
 
   resource "urllib3" do
@@ -74,9 +74,27 @@ class QleverControl < Formula
     sha256 "1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed"
   end
 
+
+  # Disable argcomplete warning for Homebrew installations
+  patch do
+    url "file://#{File.expand_path('../Patches/disable-autocompletion-warning.patch', __dir__)}"
+    sha256 "00bb2c4dc24181e7169fcf31b395a8e29e7144a182c43037710739487c294f62"
+  end
+
+  # Update all Qleverfiles to use SYSTEM = native by default
+  patch do
+    url "file://#{File.expand_path('../Patches/qleverfile-use-native-system.patch', __dir__)}"
+    sha256 "b3731065aeb8372cf1106306206316c93fc0a34243b3fc805861a683818eb6b9"
+  end
+
   def install
-    virtualenv_create(libexec, "python3")
     virtualenv_install_with_resources
+
+    # Install shell completions
+    generate_completions_from_executable(
+      libexec/"bin/register-python-argcomplete", "qlever",
+      shells: [:bash, :zsh, :fish]
+    )
   end
 
   test do

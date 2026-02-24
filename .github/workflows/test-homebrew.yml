@@ -1,11 +1,20 @@
 name: Test Homebrew Formula
 
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  merge_group:
   workflow_dispatch:  # Allow manual triggers
 
 jobs:
   test-homebrew-install:
-    runs-on: macos-14
+    strategy:
+      matrix:
+        os: [macos-14, macos-15, macos-26]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check runner architecture
@@ -13,18 +22,21 @@ jobs:
           echo "Architecture: $(uname -m)"
           echo "macOS version: $(sw_vers -productVersion)"
           echo "Runner: ${{ matrix.os }}"
+          echo "Python version: $(python3 --version)"
 
       - name: Update Homebrew
         run: brew update
 
-      - name: Tap qlever repository
-        run: brew tap qlever-dev/qlever
+      - uses: actions/checkout@v4
 
-      - name: Install qlever
-        run: brew install qlever
-
-      - name: Run Homebrew formula tests
-        run: brew test qlever-dev/qlever/qlever
+      - name: Install formula from local tap
+        run: |
+          brew tap-new $USER/local-tap
+          cp Formula/*.rb $(brew --repository $USER/local-tap)/Formula/
+          cp -r Patches $(brew --repository $USER/local-tap)/ || true
+          brew install --build-from-source $USER/local-tap/qlever
+          brew test $USER/local-tap/qlever
+          brew test $USER/local-tap/qlever-control
 
       - name: Verify binaries are installed
         run: |
@@ -55,14 +67,20 @@ jobs:
           echo "=== qlever-index dependencies ==="
           otool -L $(which qlever-index)
 
-      - name: Test qlever script for olympics dataset, without Docker
+      - name: Test qlever script for olympics dataset (native is default)
         timeout-minutes: 3
         run: |
           mkdir -p qlever-indices/olympics && cd $_
           qlever setup-config olympics
+
+          # Verify the generated Qleverfile has SYSTEM = native
+          echo "Generated Qleverfile SYSTEM setting:"
+          grep -i "SYSTEM" Qleverfile
+
+          # Run without --system flag to verify native is the default
           qlever get-data
-          qlever index --system native
-          qlever start --system native
+          qlever index
+          qlever start
           qlever status
           qlever query
           qlever stop

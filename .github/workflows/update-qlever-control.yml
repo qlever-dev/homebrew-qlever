@@ -1,6 +1,11 @@
 name: Update qlever-control formula
 
 on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  merge_group:
   workflow_dispatch:
 
 permissions:
@@ -42,7 +47,7 @@ jobs:
         run: |
           python3 -m venv venv
           source venv/bin/activate
-          venv/bin/pip install qlever homebrew-pypi-poet
+          venv/bin/pip install 'setuptools<81' qlever homebrew-pypi-poet
           poet -f qlever > Formula/qlever-control.rb
           deactivate
           rm -rf venv

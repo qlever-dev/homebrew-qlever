@@ -1,0 +1,17 @@
+diff --git a/src/qlever/commands/setup_config.py b/src/qlever/commands/setup_config.py
+--- a/src/qlever/commands/setup_config.py
++++ b/src/qlever/commands/setup_config.py
+@@ -53,10 +53,9 @@ class SetupConfigCommand(QleverCommand):
+             f"cat {qleverfile_path}"
+             f" | sed -E 's/(^ACCESS_TOKEN.*)/\\1_{get_random_string(12)}/'"
+         )
+-        if qlever_is_running_in_container:
+-            setup_config_cmd += (
+-                " | sed -E 's/(^SYSTEM[[:space:]]*=[[:space:]]*).*/\\1native/'"
+-            )
++        setup_config_cmd += (
++            " | sed -E 's/(^SYSTEM[[:space:]]*=[[:space:]]*).*/\\1native/'"
++        )
+         setup_config_cmd += "> Qleverfile"
+         self.show(setup_config_cmd, only_show=args.show)
+         if args.show:
