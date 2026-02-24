@@ -7,7 +7,7 @@ class QleverControl < Formula
   url "https://files.pythonhosted.org/packages/30/64/3aa30ebb5742ad167a50034f8b8ba5bd73feef3dcbdf49b1ba889a3aec62/qlever-0.5.45.tar.gz"
   sha256 "bc9d0b0cdaf4d4532ce455361380ea34baddca9992f4fd01665d341014ff65ee"
 
-  depends_on "python3"
+  depends_on "python@3.13"
 
   resource "argcomplete" do
     url "https://files.pythonhosted.org/packages/38/61/0b9ae6399dd4a58d8c1b1dc5a27d6f2808023d0b5dd3104bb99f45a33ff6/argcomplete-3.6.3.tar.gz"
