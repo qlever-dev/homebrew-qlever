@@ -3,7 +3,10 @@
 
 import re
 import subprocess
+import sys
 from pathlib import Path
+
+PYTHON_VERSION = f"python@{sys.version_info.major}.{sys.version_info.minor}"
 
 formula_path = Path("Formula/qlever-control.rb")
 patches_dir = Path("Patches")
@@ -22,14 +25,14 @@ content = re.sub(
 # Fix homepage
 content = re.sub(
     r'homepage ".*?"',
-    'homepage "https://github.com/ad-freiburg/qlever-control"',
+    'homepage "https://github.com/qlever-dev/qlever-control"',
     content,
 )
 
 # Add license after homepage if not present
 if 'license "' not in content:
     content = re.sub(
-        r'(homepage "https://github.com/ad-freiburg/qlever-control")',
+        r'(homepage "https://github.com/qlever-dev/qlever-control")',
         r'\1\n  license "Apache-2.0"',
         content,
     )
@@ -42,6 +45,12 @@ def get_sha256(file_path: Path) -> str:
     )
     return result.stdout.split()[0]
 
+
+# Fix Python dependency: poet generates "python3" but Homebrew needs versioned
+content = re.sub(r'depends_on "python3"', f'depends_on "{PYTHON_VERSION}"', content)
+
+# Remove explicit virtualenv_create line (virtualenv_install_with_resources handles it)
+content = re.sub(r' *virtualenv_create\(libexec, "python3[^"]*"\)\n', "", content)
 
 # Add patch blocks before def install if not present
 if "patch do" not in content:
