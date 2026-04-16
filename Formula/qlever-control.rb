@@ -2,12 +2,12 @@ class QleverControl < Formula
   include Language::Python::Virtualenv
 
   desc "Command-line tool for QLever graph database"
-  homepage "https://github.com/ad-freiburg/qlever-control"
+  homepage "https://github.com/qlever-dev/qlever-control"
   license "Apache-2.0"
-  url "https://files.pythonhosted.org/packages/30/64/3aa30ebb5742ad167a50034f8b8ba5bd73feef3dcbdf49b1ba889a3aec62/qlever-0.5.45.tar.gz"
-  sha256 "bc9d0b0cdaf4d4532ce455361380ea34baddca9992f4fd01665d341014ff65ee"
+  url "https://files.pythonhosted.org/packages/4e/8e/4c2688b7a54592acf5e7be2cc0e334fe73cf503ce78b8f41f8e7a1856b23/qlever-0.5.46.tar.gz"
+  sha256 "3ff7917da0f4f3c36b15552cf82aaeadb317d142743380e38e31d3e2c32f7233"
 
-  depends_on "python@3.13"
+  depends_on "python@3.14"
 
   resource "argcomplete" do
     url "https://files.pythonhosted.org/packages/38/61/0b9ae6399dd4a58d8c1b1dc5a27d6f2808023d0b5dd3104bb99f45a33ff6/argcomplete-3.6.3.tar.gz"
@@ -15,13 +15,13 @@ class QleverControl < Formula
   end
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/e0/2d/a891ca51311197f6ad14a7ef42e2399f36cf2f9bd44752b3dc4eab60fdc5/certifi-2026.1.4.tar.gz"
-    sha256 "ac726dd470482006e014ad384921ed6438c457018f4b3d204aea4281258b2120"
+    url "https://files.pythonhosted.org/packages/af/2d/7bf41579a8986e348fa033a31cdd0e4121114f6bce2457e8876010b092dd/certifi-2026.2.25.tar.gz"
+    sha256 "e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7"
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/13/69/33ddede1939fdd074bce5434295f38fae7136463422fe4fd3e0e89b98062/charset_normalizer-3.4.4.tar.gz"
-    sha256 "94537985111c35f28720e43603b8e7b43a6ecfb2ce1d3058bbe955b73404e21a"
+    url "https://files.pythonhosted.org/packages/e7/a1/67fe25fac3c7642725500a3f6cfe5821ad557c3abb11c9d20d12c7008d3e/charset_normalizer-3.4.7.tar.gz"
+    sha256 "ae89db9e5f98a11a4bf50407d4363e7b09b31e55bc117b4f7d80aab97ba009e5"
   end
 
   resource "idna" do
@@ -50,13 +50,13 @@ class QleverControl < Formula
   end
 
   resource "requests" do
-    url "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz"
-    sha256 "dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf"
+    url "https://files.pythonhosted.org/packages/5f/a4/98b9c7c6428a668bf7e42ebb7c79d576a1c3c1e3ae2d47e674b468388871/requests-2.33.1.tar.gz"
+    sha256 "18817f8c57c6263968bc123d237e3b8b08ac046f5456bd1e307ee8f4250d3517"
   end
 
   resource "requests-sse" do
-    url "https://files.pythonhosted.org/packages/cf/73/dd6b0ae667c7720ddd5479f6216b1442610fdd162e27ce7bfb8357083f06/requests_sse-0.5.2.tar.gz"
-    sha256 "2bcb7cf905074b18ff9f7322716234c1188dfde805bba38300b37c6b5ae3a20a"
+    url "https://files.pythonhosted.org/packages/13/94/f0f29584c3ca24c29a72e19a28136f73ed08adddc93fb8a0c998577c9085/requests_sse-0.5.3.tar.gz"
+    sha256 "107c63afb2a2292b422ab2504849f3adb54b4c884700646ebe9f6e4178ba375c"
   end
 
   resource "termcolor" do
@@ -84,7 +84,7 @@ class QleverControl < Formula
   # Update all Qleverfiles to use SYSTEM = native by default
   patch do
     url "file://#{File.expand_path('../Patches/qleverfile-use-native-system.patch', __dir__)}"
-    sha256 "b3731065aeb8372cf1106306206316c93fc0a34243b3fc805861a683818eb6b9"
+    sha256 "e037c7829862ae8c41b6bdc8ba613bcc37fc50e3c2a0a4dc9d4c50f11698c004"
   end
 
   def install

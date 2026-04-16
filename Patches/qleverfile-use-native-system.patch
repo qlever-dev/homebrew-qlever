@@ -1,17 +1,12 @@
-diff --git a/src/qlever/commands/setup_config.py b/src/qlever/commands/setup_config.py
---- a/src/qlever/commands/setup_config.py
-+++ b/src/qlever/commands/setup_config.py
-@@ -53,10 +53,9 @@ class SetupConfigCommand(QleverCommand):
-             f"cat {qleverfile_path}"
-             f" | sed -E 's/(^ACCESS_TOKEN.*)/\\1_{get_random_string(12)}/'"
-         )
--        if qlever_is_running_in_container:
--            setup_config_cmd += (
--                " | sed -E 's/(^SYSTEM[[:space:]]*=[[:space:]]*).*/\\1native/'"
--            )
-+        setup_config_cmd += (
-+            " | sed -E 's/(^SYSTEM[[:space:]]*=[[:space:]]*).*/\\1native/'"
-+        )
-         setup_config_cmd += "> Qleverfile"
-         self.show(setup_config_cmd, only_show=args.show)
-         if args.show:
+diff --git a/src/qlever/qleverfile.py b/src/qlever/qleverfile.py
+--- a/src/qlever/qleverfile.py
++++ b/src/qlever/qleverfile.py
+@@ -359,7 +359,7 @@ class Qleverfile:
+             "--system",
+             type=str,
+             choices=Containerize.supported_systems() + ["native"],
+-            default="docker",
++            default="native",
+             help=(
+                 "Whether to run commands like `index` or `start` "
+                 "natively or in a container, and if in a container, "
