@@ -67,6 +67,12 @@ jobs:
           echo "=== qlever-index dependencies ==="
           otool -L $(which qlever-index)
 
+      - name: Verify linkage matches declared dependencies
+        # Fails if the binaries link a library that is not provided by a
+        # declared dependency. Unlike otool above (printed, never asserted),
+        # this turns an undeclared/mismatched dylib into a CI failure.
+        run: brew linkage --test $USER/local-tap/qlever
+
       - name: Test qlever script for olympics dataset (native is default)
         timeout-minutes: 3
         run: |
