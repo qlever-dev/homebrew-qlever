@@ -34,6 +34,9 @@ jobs:
           brew tap-new $USER/local-tap
           cp Formula/*.rb $(brew --repository $USER/local-tap)/Formula/
           cp -r Patches $(brew --repository $USER/local-tap)/ || true
+          # Homebrew now refuses formulae from untrusted third-party taps. This
+          # tap is created here from our own files, so trust it before install.
+          brew trust $USER/local-tap
           brew install --build-from-source $USER/local-tap/qlever
           brew test $USER/local-tap/qlever
           brew test $USER/local-tap/qlever-control
