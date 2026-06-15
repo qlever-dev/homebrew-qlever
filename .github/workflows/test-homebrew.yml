@@ -34,6 +34,9 @@ jobs:
           brew tap-new $USER/local-tap
           cp Formula/*.rb $(brew --repository $USER/local-tap)/Formula/
           cp -r Patches $(brew --repository $USER/local-tap)/ || true
+          # Homebrew now refuses formulae from untrusted third-party taps. This
+          # tap is created here from our own files, so trust it before install.
+          brew trust $USER/local-tap
           brew install --build-from-source $USER/local-tap/qlever
           brew test $USER/local-tap/qlever
           brew test $USER/local-tap/qlever-control
@@ -66,6 +69,12 @@ jobs:
           echo ""
           echo "=== qlever-index dependencies ==="
           otool -L $(which qlever-index)
+
+      - name: Verify linkage matches declared dependencies
+        # Fails if the binaries link a library that is not provided by a
+        # declared dependency. Unlike otool above (printed, never asserted),
+        # this turns an undeclared/mismatched dylib into a CI failure.
+        run: brew linkage --test $USER/local-tap/qlever
 
       - name: Test qlever script for olympics dataset (native is default)
         timeout-minutes: 3

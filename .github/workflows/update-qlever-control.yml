@@ -19,9 +19,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Python
+        # Must match the python@X.Y pinned in Formula/qlever-control.rb, because
+        # fix_formula.py derives the dependency from the interpreter it runs
+        # under. A mismatch would silently rewrite the dep on the next update.
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.14'
 
       - name: Check if update is needed
         id: version-check

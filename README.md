@@ -6,5 +6,8 @@ You can add the custom tap and install the `qlever-index` and `qlever-server` bi
 
 ```zsh
 brew tap qlever-dev/qlever
+# Recent versions of Homebrew require third-party taps to be explicitly trusted
+# Skip if your Homebrew is older
+brew trust qlever-dev/qlever
 brew install qlever
 ```
