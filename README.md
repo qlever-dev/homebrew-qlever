@@ -11,5 +11,3 @@ brew tap qlever-dev/qlever
 brew trust qlever-dev/qlever
 brew install qlever
 ```
-
-Recent versions of Homebrew require third-party taps to be explicitly trusted before their formulae will install, which is why the `brew trust` step is needed. If your Homebrew is older and does not have `brew trust`, you can skip that line.
