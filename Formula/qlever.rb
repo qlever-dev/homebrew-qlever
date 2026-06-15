@@ -7,7 +7,7 @@ class Qlever < Formula
   url "https://packages.qlever.dev/mac/qlever_0.5.48_macos_arm64.tar.gz"
   sha256 "63917095213f75b31c4a5b071e5ac1f8211cec38324f00175ccca974bc3025eb"
 
-  depends_on "boost@1.90"
+  depends_on "boost"
   depends_on "icu4c@78"
   depends_on "jemalloc"
   depends_on "openssl@3"
