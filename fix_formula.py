@@ -49,6 +49,17 @@ def get_sha256(file_path: Path) -> str:
 # Fix Python dependency: poet generates "python3" but Homebrew needs versioned
 content = re.sub(r'depends_on "python3"', f'depends_on "{PYTHON_VERSION}"', content)
 
+# The qlever[plot] extras come from Homebrew formulas instead of resources:
+# the venv sees them via --system-site-packages, and python-matplotlib has no
+# sdist-buildable resource equivalent worth maintaining.
+for dep in ("numpy", "python-matplotlib"):
+    if f'depends_on "{dep}"' not in content:
+        content = re.sub(
+            rf'( *)(depends_on "{re.escape(PYTHON_VERSION)}")',
+            rf'\1depends_on "{dep}"\n\1\2',
+            content,
+        )
+
 # Remove explicit virtualenv_create line (virtualenv_install_with_resources handles it)
 content = re.sub(r' *virtualenv_create\(libexec, "python3[^"]*"\)\n', "", content)
 
@@ -100,7 +111,10 @@ if "generate_completions_from_executable" not in content:
 # Fix test block (poet generates "test do\n    false\n  end")
 content = re.sub(
     r"test do.*?end",
-    'test do\n    assert_match version.to_s, shell_output("#{bin}/qlever --version")\n  end',
+    "test do\n"
+    '    assert_match version.to_s, shell_output("#{bin}/qlever --version")\n'
+    '    system libexec/"bin/python", "-c", "import matplotlib, numpy"\n'
+    "  end",
     content,
     flags=re.DOTALL,
 )
