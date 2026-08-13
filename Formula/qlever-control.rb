@@ -4,8 +4,8 @@ class QleverControl < Formula
   desc "Command-line tool for QLever graph database"
   homepage "https://github.com/qlever-dev/qlever-control"
   license "Apache-2.0"
-  url "https://files.pythonhosted.org/packages/6f/02/fc596573397e0ed730dab9dbc2dfbadeeaa4cde2369d0d95f784bbce239e/qlever-0.5.50.tar.gz"
-  sha256 "b2311f816b9de2cc6c9f22e7b0377bcf706c20b117720562ddba7628e0381288"
+  url "https://files.pythonhosted.org/packages/3c/2b/af5aa7bf814d51b5a5670ae5489f95ecf28a49545b40c61c9382b891add8/qlever-0.6.0.tar.gz"
+  sha256 "3bd3fb700016afeaad738ada4df5f056cacb2fdf7a68886969459a56dc449ca2"
 
   depends_on "numpy"
   depends_on "python-matplotlib"
@@ -56,6 +56,11 @@ class QleverControl < Formula
     sha256 "31e761a6a0ca04faf7353ea759bdba55652be214725111e5aac52dfa29d4bef7"
   end
 
+  resource "plotext" do
+    url "https://files.pythonhosted.org/packages/c9/d7/f75f397af966fe252d0d34ffd3cae765317fce2134f925f95e7d6725d1ce/plotext-5.3.2.tar.gz"
+    sha256 "52d1e932e67c177bf357a3f0fe6ce14d1a96f7f7d5679d7b455b929df517068e"
+  end
+
   resource "psutil" do
     url "https://files.pythonhosted.org/packages/aa/c6/d1ddf4abb55e93cebc4f2ed8b5d6dbad109ecb8d63748dd2b20ab5e57ebe/psutil-7.2.2.tar.gz"
     sha256 "0746f5f8d406af344fd547f1c8daa5f5c33dbc293bb8d6a16d80b4bb88f59372"
@@ -104,6 +109,11 @@ class QleverControl < Formula
   resource "textual" do
     url "https://files.pythonhosted.org/packages/00/21/39a76b01bd5eea82a04baaca7580e105d8c59450df03998345bb2cfb307b/textual-8.2.8.tar.gz"
     sha256 "3f106a9fbc73e39dd266c9712432087de78a6d644084c7c241d6a25c3169115b"
+  end
+
+  resource "textual-plotext" do
+    url "https://files.pythonhosted.org/packages/9a/b0/e4e0f38df057db778252db0dd2c08522d7222b8537b6a0181d797b9044bd/textual_plotext-1.0.1.tar.gz"
+    sha256 "836f53a3316756609e194129a35c2875638e7958c261f541e0a794f7c98011be"
   end
 
   resource "tqdm" do

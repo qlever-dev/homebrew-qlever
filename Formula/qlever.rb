@@ -1,11 +1,11 @@
 class Qlever < Formula
   desc "High-performance graph database implementing the RDF and SPARQL standards"
   homepage "https://github.com/ad-freiburg/qlever"
-  version "0.5.50"
+  version "0.6.0"
   license "Apache-2.0"
   
-  url "https://packages.qlever.dev/mac/qlever_0.5.50_macos_arm64.tar.gz"
-  sha256 "8f03387c420d8cc396b03f01c2fdf4240259daae20a7d0061b3f2d118cfe75ed"
+  url "https://packages.qlever.dev/mac/qlever_0.6.0_macos_arm64.tar.gz"
+  sha256 "7fe3ce43c0e5316d53b791d680a212ddc5f884f859023a3105791d6120a07751"
 
   depends_on "boost"
   depends_on "icu4c@78"
